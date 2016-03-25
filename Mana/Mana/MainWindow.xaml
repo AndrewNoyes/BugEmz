@@ -1,0 +1,179 @@
+﻿<controls:MetroWindow x:Class="Mana.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                      xmlns:system="clr-namespace:System;assembly=mscorlib"
+                      xmlns:ui="clr-namespace:Mana.UI"
+                      xmlns:issues="clr-namespace:Mana.UI.Issues"
+                      xmlns:palette="clr-namespace:Mana.UI.Palette"
+                      xmlns:home="clr-namespace:Mana.UI.Home"
+                      mc:Ignorable="d"
+                      Title="BugEmz"
+                      TitleCaps="False"
+                      Height="350" 
+                      Width="525"
+                      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                      TextOptions.TextFormattingMode="Ideal" 
+                      TextOptions.TextRenderingMode="Auto"  
+                      WindowState="Maximized"
+                      Background="{DynamicResource MaterialDesignPaper}"					  
+                      GlowBrush="{DynamicResource AccentColorBrush}"					  
+                      FontFamily="{StaticResource DefaultFont}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <materialDesign:DialogHost Identifier="RootDialog">
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel MinWidth="212">
+
+                    <Grid DockPanel.Dock="Top"
+                          Margin="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"
+                                   Text="Menu"
+                                   FontSize="24"/>
+                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                      Grid.Column="3"
+                                      HorizontalAlignment="Right" 
+                                      IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                    </Grid>
+
+                    <ListBox x:Name="MenuItemsListBox" 
+                             Margin="0 16 0 16" 
+                             SelectedIndex="0"                         
+                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="ui:MenuItem">
+                                <StackPanel Orientation="Horizontal" Margin="20 0 0 0" >
+                                    <materialDesign:PackIcon Kind="{Binding Icon}"
+                                                             VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Name}" 
+                                               Margin="20,0,0,0"
+                                               VerticalAlignment="Center"
+                                               FontSize="16"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ui:MenuItem Name="Home" Icon="Home">
+                            <ui:MenuItem.Content>
+                                <home:Home/>
+                            </ui:MenuItem.Content>
+                        </ui:MenuItem>
+                        <ui:MenuItem Name="Issues" Icon="AlertCircle">
+                            <ui:MenuItem.Content>
+                                <issues:Issues/>
+                            </ui:MenuItem.Content>
+                        </ui:MenuItem>
+                        <ui:MenuItem Name="Colors" Icon="Palette">
+                            <ui:MenuItem.Content>
+                                <palette:PaletteSelector>
+                                    <palette:PaletteSelector.DataContext>
+                                        <palette:PaletteSelectorViewModel />
+                                    </palette:PaletteSelector.DataContext>
+                                </palette:PaletteSelector>
+                            </ui:MenuItem.Content>
+                        </ui:MenuItem>
+                    </ListBox>
+                </DockPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            <DockPanel>
+                <materialDesign:ColorZone Padding="16" 
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                          Mode="PrimaryMid"
+                                          DockPanel.Dock="Top">
+                    <DockPanel>
+                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                      IsChecked="False"
+                                      x:Name="MenuToggleButton"
+                                      Cursor="Hand"/>
+
+                        <!-- Current Page -->
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="18"
+                                   Margin="10,0,0,0"
+                                   Text="{Binding ElementName=MenuItemsListBox, Path=SelectedItem.Name}"/>
+
+                        <!-- Settings -->
+                        <materialDesign:PopupBox DockPanel.Dock="Right" 
+                                                 PlacementMode="BottomAndAlignRightEdges" 
+                                                 StaysOpen="True">
+                            <StackPanel>
+                                <Button Content="Settings" Click="MenuPopupButton_OnClick"/>
+                                <Button Content="Logout" Click="MenuPopupButton_OnClick"/>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+
+                        <StackPanel Orientation="Horizontal"
+                                    materialDesign:RippleAssist.IsCentered="True">
+
+                            <!-- Search -->
+                            <materialDesign:ColorZone Mode="Standard" 
+                                                      Padding="8 4 8 4" 
+                                                      CornerRadius="2" 
+                                                      Panel.ZIndex="1"
+                                                      Margin="16 0 0 0"
+                                                      materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0" 
+                                         Margin="8 0 0 0" 
+                                         materialDesign:TextFieldAssist.Hint="Search anything" 
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden" 
+                                         MinWidth="250" 
+                                         VerticalAlignment="Center"
+                                         FontSize="14"/>
+                                    <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                        Grid.Column="1">
+                                        <materialDesign:PackIcon Kind="Magnify"  />
+                                    </Button>
+                                </Grid>
+                            </materialDesign:ColorZone>
+                        </StackPanel>
+
+                    </DockPanel>
+                </materialDesign:ColorZone>
+                <ContentControl Margin="16" 
+                                Content="{Binding ElementName=MenuItemsListBox, Path=SelectedItem.Content}" />
+            </DockPanel>
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
+</controls:MetroWindow>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

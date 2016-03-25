@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="Mana.UI.Home.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <!-- throw in some extra colour for our floating action button -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Yellow.Named.Primary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Red.Named.Primary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Grey.Named.Primary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Teal.Named.Primary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Purple.Named.Primary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Floating Action Button -->
+        <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                                 HorizontalAlignment="Right" 
+                                 VerticalAlignment="Bottom"
+                                 Margin="32" 
+                                 Grid.Row="1">
+            <StackPanel>
+                <Button ToolTip="Email" 
+                        Background="{DynamicResource SecondaryAccentBrush}"
+                        Foreground="{DynamicResource SecondaryAccentForegroundBrush}">
+                    <materialDesign:PackIcon Kind="Email" />
+                </Button>
+                <Button ToolTip="Chart">
+                    <Button.Background>
+                        <SolidColorBrush Color="{StaticResource TealPrimary500}"/>
+                    </Button.Background>
+                    <Button.Foreground>
+                        <SolidColorBrush Color="{StaticResource TealPrimary500Foreground}"/>
+                    </Button.Foreground>
+                    <materialDesign:PackIcon Kind="ChartBar" />
+                </Button>
+                <Button ToolTip="Summary">
+                    <Button.Background>
+                        <SolidColorBrush Color="{StaticResource GreenPrimary500}"/>
+                    </Button.Background>
+                    <Button.Foreground>
+                        <SolidColorBrush Color="{StaticResource GreenPrimary500Foreground}"/>
+                    </Button.Foreground>
+                    <materialDesign:PackIcon Kind="FileChart" />
+                </Button>
+            </StackPanel>
+        </materialDesign:PopupBox>
+
+    </Grid>
+</UserControl>
