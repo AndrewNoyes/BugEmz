@@ -11,7 +11,7 @@
                       xmlns:palette="clr-namespace:Mana.UI.Palette"
                       xmlns:home="clr-namespace:Mana.UI.Home"
                       mc:Ignorable="d"
-                      Title="BugEmz"
+                      Title="Mana"
                       TitleCaps="False"
                       Height="350" 
                       Width="525"
@@ -85,6 +85,26 @@
                                 <issues:Issues/>
                             </ui:MenuItem.Content>
                         </ui:MenuItem>
+                        <ui:MenuItem Name="Notes" Icon="LibraryBooks">
+                            <ui:MenuItem.Content>
+                                <issues:Issues/>
+                            </ui:MenuItem.Content>
+                        </ui:MenuItem>
+                        <ui:MenuItem Name="Console" Icon="Console">
+                            <ui:MenuItem.Content>
+                                <issues:Issues/>
+                            </ui:MenuItem.Content>
+                        </ui:MenuItem>
+                        <ui:MenuItem Name="Email" Icon="Email">
+                            <ui:MenuItem.Content>
+                                <issues:Issues/>
+                            </ui:MenuItem.Content>
+                        </ui:MenuItem>
+                        <ui:MenuItem Name="Calendar" Icon="Calendar">
+                            <ui:MenuItem.Content>
+                                <issues:Issues/>
+                            </ui:MenuItem.Content>
+                        </ui:MenuItem>
                         <ui:MenuItem Name="Colors" Icon="Palette">
                             <ui:MenuItem.Content>
                                 <palette:PaletteSelector>
@@ -110,6 +130,7 @@
 
                         <!-- Current Page -->
                         <TextBlock VerticalAlignment="Center"
+                                   Width="75"
                                    FontSize="18"
                                    Margin="10,0,0,0"
                                    Text="{Binding ElementName=MenuItemsListBox, Path=SelectedItem.Name}"/>
@@ -124,10 +145,10 @@
                             </StackPanel>
                         </materialDesign:PopupBox>
 
+                        <!-- Search -->
                         <StackPanel Orientation="Horizontal"
                                     materialDesign:RippleAssist.IsCentered="True">
 
-                            <!-- Search -->
                             <materialDesign:ColorZone Mode="Standard" 
                                                       Padding="8 4 8 4" 
                                                       CornerRadius="2" 
